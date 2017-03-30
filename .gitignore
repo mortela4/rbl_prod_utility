@@ -23,9 +23,14 @@
 *.a
 *.lib
 
+# CSharp auto-generated .CS-files (from XAML)
+*.xaml.cs
+
 # Executables
 *.exe
 *.out
 *.app
 bin
 obj
+Debug
+blfwk-Debug
