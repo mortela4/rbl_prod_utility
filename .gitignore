@@ -26,6 +26,9 @@
 # CSharp auto-generated .CS-files (from XAML)
 *.xaml.cs
 
+# VisualStudio user settings
+.vs
+
 # Executables
 *.exe
 *.out
