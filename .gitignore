@@ -23,8 +23,8 @@
 *.a
 *.lib
 
-# CSharp auto-generated .CS-files (from XAML)
-*.xaml.cs
+# Visual Studio cache file
+*.sdf
 
 # VisualStudio user settings
 .vs
