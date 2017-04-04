@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//
+using KinetisUpdater.ViewModel;
+
 
 namespace ProductionProgrammingGUI
 {
@@ -20,9 +23,17 @@ namespace ProductionProgrammingGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ToplevelViewModel TVM = new ToplevelViewModel();
+
         public MainWindow()
         {
+            // Init
+            TVM.devVM = new DeviceViewModel();
+            TVM.imgFileVM = new ImageFileManagerViewModel();
+            //TVM.updVM = new UpdaterViewModel(null);           // TODO: construct w. device as argument!
+            //
             InitializeComponent();
+            this.DataContext = TVM;
         }
     }
 }

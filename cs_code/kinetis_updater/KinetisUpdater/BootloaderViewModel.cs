@@ -56,11 +56,14 @@ namespace KinetisUpdater.ViewModel
             // device.
             Updater = null;
 
-            if (DeviceModel.IsSerial)
+            if ( DeviceModel != null)
             {
-                IsConnectedTimer = new System.Windows.Threading.DispatcherTimer();
-                IsConnectedTimer.Tick += new EventHandler(IsConnectedTimer_Tick);
-                IsConnectedTimer.Interval = new TimeSpan(0, 0, 1);
+                if (DeviceModel.IsSerial)
+                {
+                    IsConnectedTimer = new System.Windows.Threading.DispatcherTimer();
+                    IsConnectedTimer.Tick += new EventHandler(IsConnectedTimer_Tick);
+                    IsConnectedTimer.Interval = new TimeSpan(0, 0, 1);
+                }
             }
         }
 
