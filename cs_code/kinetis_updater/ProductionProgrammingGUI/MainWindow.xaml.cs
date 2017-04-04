@@ -35,5 +35,10 @@ namespace ProductionProgrammingGUI
             InitializeComponent();
             this.DataContext = TVM;
         }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // pass ...
+        }
     }
 }

@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="Production Programming Utility" Height="350" Width="525">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="83,47,0,0" TextWrapping="Wrap" Text="{Binding imgFileVM.CurrentImageFile}" VerticalAlignment="Top" Width="301"/>
         <Button x:Name="browseButton" Content="Browse" HorizontalAlignment="Left" Margin="406,51,0,0" VerticalAlignment="Top" Width="75" Command="{Binding imgFileVM.BrowseForImageFileCommand}" />
         <!-- 
         <TextBox> 
@@ -16,7 +15,7 @@
         -->
         <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="83,111,0,0" TextWrapping="Wrap" Text="{Binding imgFileVM.CurrentImageFile.BaseAddress}" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="83,215,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding devVM.CurrentDevice}" ItemsSource="{Binding devVM.DeviceViewModelList}" MinWidth="120"/>
-        
+
         <Label x:Name="progFileLabel" Content=".BIN-file" HorizontalAlignment="Left" Margin="24,47,0,0" VerticalAlignment="Top"/>
         <Label x:Name="addrLabel" Content="Address" HorizontalAlignment="Left" Margin="24,111,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.517,-0.143"/>
         <Label x:Name="connectLabel" Content="Connect" HorizontalAlignment="Left" Margin="24,215,0,0" VerticalAlignment="Top"/>
@@ -25,6 +24,17 @@
         <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="406,215,0,0" VerticalAlignment="Top" Width="75"/>
         <TextBox x:Name="statusText" HorizontalAlignment="Left" Height="23" Margin="264,215,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="120"/>
         <Label x:Name="statusLabel" Content="Status" HorizontalAlignment="Left" Margin="220,215,0,0" VerticalAlignment="Top"/>
+
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="83,47,0,0" VerticalAlignment="Top" Width="299" RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding imgFileVM.ImageFileViewModelList}" SelectedItem="{Binding imgFileVM.CurrentImageFile}" ToolTip="{Binding CurrentImageFile.FullPath}">
+        <ComboBox.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="0.188"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </ComboBox.RenderTransform>
+       </ComboBox>
 
     </Grid>
 </Window>
