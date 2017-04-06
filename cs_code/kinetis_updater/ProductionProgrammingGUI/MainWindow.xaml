@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Production Programming Utility" Height="400" Width="600">
     <Grid>
-        <Button x:Name="browseButton" Content="Browse" HorizontalAlignment="Left" Margin="406,51,0,0" VerticalAlignment="Top" Width="75" Command="{Binding imgFileVM.BrowseForImageFileCommand}" />
+        <Button x:Name="browseButton" Content="Browse" HorizontalAlignment="Left" Margin="406,51,0,0" VerticalAlignment="Top" Width="100" Command="{Binding imgFileVM.BrowseForImageFileCommand}" />
         <!-- 
         <TextBox> 
         x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="83,111,0,0" TextWrapping="Wrap" Text="{Binding imgFileVM.CurrentImageFile.BaseAddress, Converter={StaticResource DecToHexConverter}}" VerticalAlignment="Top" Width="120"/>
@@ -21,7 +21,14 @@
         <Label x:Name="connectLabel" Content="Connection" HorizontalAlignment="Left" Margin="13,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.159,0.547"/>
         <ProgressBar HorizontalAlignment="Left" Height="27" Margin="83,270,0,0" VerticalAlignment="Top" Width="398"/>
         <Label x:Name="progressLabel" Content="Progress" HorizontalAlignment="Left" Margin="24,270,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="83,236,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="83,236,0,0" VerticalAlignment="Top" Width="75">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource multiBoolConverter}">
+                    <Binding Path="ImageFileManager.CurrentImageFile.IsEnabled" />
+                    <Binding Path="CurrentDevice.UpdaterModel.IsConnected" />
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
         <TextBox x:Name="statusText" HorizontalAlignment="Left" Height="23" Margin="406,177,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="158"/>
         <Label x:Name="statusLabel" Content="Status" HorizontalAlignment="Left" Margin="365,178,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
@@ -46,6 +53,7 @@
        </ComboBox>
         <Button x:Name="button" Content="Connect" HorizontalAlignment="Left" Margin="217,180,0,0" VerticalAlignment="Top" Width="75" Height="22" Visibility="{Binding imgFileVM.CurrentDevice.UpdaterModel.IsConnected, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Invert, FallbackValue=false}"
                         Command="{Binding devVM.CurrentDevice.UpdaterModel.ConnectCommand}"/>
+        <Button x:Name="saveButt" Content="Store Selection" HorizontalAlignment="Left" Margin="406,114,0,0" VerticalAlignment="Top" Width="100" Background="Azure"/>
 
     </Grid>
 </Window>
