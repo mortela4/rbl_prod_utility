@@ -172,7 +172,8 @@ namespace KinetisUpdater.ViewModel
             }
         }
 
-        internal Boolean Ping()
+        //internal Boolean Ping()
+        public Boolean Ping()
         {
             if (DeviceModel.IsNull)
             {

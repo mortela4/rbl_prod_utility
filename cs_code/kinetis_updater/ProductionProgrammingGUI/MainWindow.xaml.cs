@@ -36,5 +36,25 @@ namespace ProductionProgrammingGUI
             this.DataContext = TVM;
         }
 
+        private void ConnectToBootloader(object sender, RoutedEventArgs e)
+        {
+            // IF-clause should NEVER be taken, but - we must ensure NULL-handling is in place.
+            if ( TVM.devVM.CurrentDevice.IsNull )
+            {
+                // Emit warning - take corrective actions
+                Console.WriteLine("ERROR: no device chosen - cannot create updater object!");
+                //
+                return;
+            }
+            TVM.updVM = new UpdaterViewModel(TVM.devVM.CurrentDevice);
+
+            // Now is the time to run "Connect"-button handler:
+            //TVM.updVM.ConnectButtonHandler();
+            if (TVM.devVM.CurrentDevice.IsSerial && !TVM.updVM.IsConnectedTimer.IsEnabled)
+                TVM.updVM.IsConnectedTimer.Start();
+            if (TVM.devVM.CurrentDevice.IsUsbHid)
+                TVM.updVM.AutoConnectUSBDevice = true;
+            TVM.updVM.Ping();
+        }
     }
 }

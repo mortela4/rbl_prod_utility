@@ -56,7 +56,7 @@
         </ComboBox.RenderTransform>
        </ComboBox>
         <Button x:Name="button" Content="Connect" HorizontalAlignment="Left" Margin="242,180,0,0" VerticalAlignment="Top" Width="75" Height="22" IsEnabled="{qc:Binding '!$P', P={Binding Path=devVM.CurrentDevice.IsNull} }"
-                        Command="{Binding devVM.CurrentDevice.UpdaterModel.ConnectCommand}"/>
+                        Click="ConnectToBootloader"/>
         <Button x:Name="saveButt" Content="Store Selection" HorizontalAlignment="Left" Margin="406,114,0,0" VerticalAlignment="Top" Width="100" Background="Azure"/>
 
     </Grid>
