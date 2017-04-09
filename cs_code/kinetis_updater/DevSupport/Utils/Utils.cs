@@ -42,6 +42,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+//
+using System.Reflection;
+
 
 namespace Utils
 {
@@ -287,13 +290,16 @@ namespace Utils
         {
             //  Cast the data to a bool.
             bool booleanValue;
+
             try
             {
                 booleanValue = (bool)value;
             }
-            catch (Exception exception)
+            //catch (Exception exception)
+            catch
             {
-                throw new InvalidOperationException("The value provided to a BooleanToVisibilityConverter could not be cast to a boolean.", exception);
+                //throw new InvalidOperationException("The value provided to a BooleanToVisibilityConverter could not be cast to a boolean.", exception);
+                booleanValue = false;
             }
 
             //  Are we inverting?
@@ -325,9 +331,11 @@ namespace Utils
             {
                 visibilityValue = (Visibility)value;
             }
-            catch (Exception exception)
+            //catch (Exception exception)
+            catch
             {
-                throw new InvalidOperationException("The value provided to a BooleanToVisibilityConverter could not be cast to a Visibility.", exception);
+                // new InvalidOperationException("The value provided to a BooleanToVisibilityConverter could not be cast to a Visibility.", exception);
+                visibilityValue = Visibility.Hidden;
             }
 
             //  Are we inverting?

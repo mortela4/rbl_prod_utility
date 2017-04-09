@@ -28,7 +28,7 @@ namespace ProductionProgrammingGUI
         public MainWindow()
         {
             // Init
-            TVM.devVM = new DeviceViewModel();
+            TVM.devVM = new DeviceManagerViewModel();
             TVM.imgFileVM = new ImageFileManagerViewModel();
             //TVM.updVM = new UpdaterViewModel(null);           // TODO: construct w. device as argument!
             //
