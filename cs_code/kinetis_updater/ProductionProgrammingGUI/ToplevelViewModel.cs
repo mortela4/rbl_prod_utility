@@ -14,8 +14,8 @@ namespace ProductionProgrammingGUI
 
             ~ToplevelViewModel() { }
 
-            private DeviceViewModel _devVM = null;
-            public DeviceViewModel devVM
+            private DeviceManagerViewModel _devVM = null;
+            public DeviceManagerViewModel devVM
             {
                 get
                 {
