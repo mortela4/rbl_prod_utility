@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:qc="http://QuickConverter.CodePlex.com/"
         xmlns:local="clr-namespace:ProductionProgrammingGUI"
         mc:Ignorable="d"
         Title="Production Programming Utility" Height="400" Width="600">
@@ -17,7 +18,7 @@
         <!-- 
         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="83,180,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding devVM.CurrentDevice, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Invert, FallbackValue=false}" ItemsSource="{Binding devVM.DeviceViewModelList}" MinWidth="120"/>
         -->
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="83,180,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding devVM.CurrentDevice}" ItemsSource="{Binding devVM.DeviceViewModelList}" MinWidth="120"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="83,180,0,0" VerticalAlignment="Top" Width="154" SelectedItem="{Binding devVM.CurrentDevice}" ItemsSource="{Binding devVM.DeviceViewModelList}" MinWidth="120"/>
 
         <Label x:Name="progFileLabel" Content=".BIN-file" HorizontalAlignment="Left" Margin="24,47,0,0" VerticalAlignment="Top"/>
         <Label x:Name="addrLabel" Content="Address" HorizontalAlignment="Left" Margin="24,111,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.517,-0.143"/>
@@ -54,7 +55,7 @@
             </TransformGroup>
         </ComboBox.RenderTransform>
        </ComboBox>
-        <Button x:Name="button" Content="Connect" HorizontalAlignment="Left" Margin="217,180,0,0" VerticalAlignment="Top" Width="75" Height="22" Visibility="{Binding imgFileVM.CurrentDevice.UpdaterModel.IsConnected, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Invert, FallbackValue=false}"
+        <Button x:Name="button" Content="Connect" HorizontalAlignment="Left" Margin="242,180,0,0" VerticalAlignment="Top" Width="75" Height="22" IsEnabled="{qc:Binding '!$P', P={Binding Path=devVM.CurrentDevice.IsNull} }"
                         Command="{Binding devVM.CurrentDevice.UpdaterModel.ConnectCommand}"/>
         <Button x:Name="saveButt" Content="Store Selection" HorizontalAlignment="Left" Margin="406,114,0,0" VerticalAlignment="Top" Width="100" Background="Azure"/>
 
