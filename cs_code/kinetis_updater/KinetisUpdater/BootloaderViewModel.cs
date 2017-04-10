@@ -202,7 +202,7 @@ namespace KinetisUpdater.ViewModel
 
             try
             {
-                Updater.ping(0, 0, 0);
+                Updater.ping(0, 0, 0);  // NOTE: this is where the actual pinging of device takes place!
                 LastError = "Success.";
                 IsConnected = true;
                 return true;

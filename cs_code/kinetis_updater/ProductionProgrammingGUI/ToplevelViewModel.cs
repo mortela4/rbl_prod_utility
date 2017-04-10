@@ -14,7 +14,13 @@ namespace ProductionProgrammingGUI
 
             ~ToplevelViewModel() { }
 
-            private DeviceManagerViewModel _devVM = null;
+        #region Properties
+
+        #region ViewModel-properties
+        /// <summary>
+        /// ViewModels wrapped by TVM.
+        /// </summary>
+        private DeviceManagerViewModel _devVM = null;
             public DeviceManagerViewModel devVM
             {
                 get
@@ -53,6 +59,27 @@ namespace ProductionProgrammingGUI
                     RaisePropertyChangedEvent("updVM");
                 }
             }
-        }
+
+        #region Other properties (= state properties)
+
+        private bool _updateAllowed = false;
+            public bool updateAllowed
+            {
+                get
+                {
+                    return _updateAllowed;
+                }
+                set
+                {
+                    _updateAllowed = value; RaisePropertyChangedEvent("updateAllowed");
+                }
+            }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+    }
 
 }

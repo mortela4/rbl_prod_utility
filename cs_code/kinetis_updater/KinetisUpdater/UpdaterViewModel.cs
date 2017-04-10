@@ -224,7 +224,8 @@ namespace KinetisUpdater.ViewModel
                         Status = "Unlocked";
 
                     }
-                    Updater.flashFirmware(ImageFileModel.FullPath, ImageFileModel.BaseAddress);
+                    //Updater.flashFirmware(ImageFileModel.FullPath, ImageFileModel.BaseAddress);
+                    Updater.flashFirmware(this.ImageFileModel.FullPath, this.ImageFileModel.BaseAddress);   // TODO: handle exceptions! (see below ...)
 
                     Reset();
                     if (DeviceModel.IsSerial)

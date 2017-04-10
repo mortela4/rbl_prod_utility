@@ -23,38 +23,47 @@ namespace ProductionProgrammingGUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ToplevelViewModel TVM = new ToplevelViewModel();
+        //private ToplevelViewModel TVM = new ToplevelViewModel();    // TODO: remove - no point in using this, as it is encapsulated in 'DeviceManagerViewModel'!!
+        private DeviceManagerViewModel DVM = new DeviceManagerViewModel();
 
         public MainWindow()
         {
             // Init
-            TVM.devVM = new DeviceManagerViewModel();
-            TVM.imgFileVM = new ImageFileManagerViewModel();
-            //TVM.updVM = new UpdaterViewModel(null);           // TODO: construct w. device as argument!
+            //TVM.devVM = new DeviceManagerViewModel();
+            //TVM.imgFileVM = new ImageFileManagerViewModel();
+            //TVM.imgFileVM = TVM.devVM.ImageFileManager;
+            //TVM.updVM = TVM.devVM.CurrentDevice.UpdaterModel;   // NOTE: UpdaterModel=null at this point - cannot use!
             //
             InitializeComponent();
-            this.DataContext = TVM;
+            this.DataContext = DVM;
         }
 
-        private void ConnectToBootloader(object sender, RoutedEventArgs e)
+       private void ConnectToBootloader(object sender, RoutedEventArgs e)
         {
             // IF-clause should NEVER be taken, but - we must ensure NULL-handling is in place.
-            if ( TVM.devVM.CurrentDevice.IsNull )
+            if (DVM.CurrentDevice.IsNull )
             {
                 // Emit warning - take corrective actions
-                Console.WriteLine("ERROR: no device chosen - cannot create updater object!");
+                Console.WriteLine("ERROR: no device chosen - cannot use updater object!");
                 //
                 return;
             }
-            TVM.updVM = new UpdaterViewModel(TVM.devVM.CurrentDevice);
+            //TVM.updVM = new UpdaterViewModel(TVM.devVM.CurrentDevice);
 
             // Now is the time to run "Connect"-button handler:
             //TVM.updVM.ConnectButtonHandler();
-            if (TVM.devVM.CurrentDevice.IsSerial && !TVM.updVM.IsConnectedTimer.IsEnabled)
-                TVM.updVM.IsConnectedTimer.Start();
-            if (TVM.devVM.CurrentDevice.IsUsbHid)
-                TVM.updVM.AutoConnectUSBDevice = true;
-            TVM.updVM.Ping();
+            //if (TVM.devVM.CurrentDevice.IsSerial && !TVM.updVM.IsConnectedTimer.IsEnabled)
+            //    TVM.updVM.IsConnectedTimer.Start();
+            //if (TVM.devVM.CurrentDevice.IsUsbHid)
+            //    TVM.updVM.AutoConnectUSBDevice = true;
+            //TVM.updVM.Ping();
+
+            // Update property (TODO: assess - no point in checking IsConnected again here?):
+            if ( DVM.ImageFileManager.CurrentImageFile.IsEnabled && DVM.CurrentDevice.UpdaterModel.IsConnected )
+            {
+                DVM.CurrentDevice.UpdaterModel.ImageFileModel = DVM.ImageFileManager.CurrentImageFile;
+                DVM.UpdateAllowed = true;
+            }
         }
     }
 }

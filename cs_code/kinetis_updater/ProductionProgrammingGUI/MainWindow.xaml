@@ -6,33 +6,19 @@
         xmlns:qc="http://QuickConverter.CodePlex.com/"
         xmlns:local="clr-namespace:ProductionProgrammingGUI"
         mc:Ignorable="d"
-        Title="Production Programming Utility" Height="400" Width="600">
+        Title="Production Programming Utility" Height="500" Width="600">
     <Grid>
-        <Button x:Name="browseButton" Content="Browse" HorizontalAlignment="Left" Margin="406,51,0,0" VerticalAlignment="Top" Width="100" Command="{Binding imgFileVM.BrowseForImageFileCommand}" />
-        <!-- 
-        <TextBox> 
-        x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="83,111,0,0" TextWrapping="Wrap" Text="{Binding imgFileVM.CurrentImageFile.BaseAddress, Converter={StaticResource DecToHexConverter}}" VerticalAlignment="Top" Width="120"/>
-        </TextBox>
-        -->
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="83,111,0,0" TextWrapping="Wrap" Text="{Binding imgFileVM.CurrentImageFile.BaseAddress}" VerticalAlignment="Top" Width="120"/>
-        <!-- 
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="83,180,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding devVM.CurrentDevice, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Invert, FallbackValue=false}" ItemsSource="{Binding devVM.DeviceViewModelList}" MinWidth="120"/>
-        -->
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="83,180,0,0" VerticalAlignment="Top" Width="154" SelectedItem="{Binding devVM.CurrentDevice}" ItemsSource="{Binding devVM.DeviceViewModelList}" MinWidth="120"/>
+        <Button x:Name="browseButton" Content="Browse" HorizontalAlignment="Left" Margin="406,51,0,0" VerticalAlignment="Top" Width="100" Command="{Binding ImageFileManager.BrowseForImageFileCommand}" />
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="83,111,0,0" TextWrapping="Wrap" Text="{Binding ImageFileManager.CurrentImageFile.BaseAddress, Converter={StaticResource DecToHexConverter}}" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="83,180,0,0" VerticalAlignment="Top" Width="154" SelectedItem="{Binding CurrentDevice}" ItemsSource="{Binding DeviceViewModelList}" MinWidth="120"/>
 
         <Label x:Name="progFileLabel" Content=".BIN-file" HorizontalAlignment="Left" Margin="24,47,0,0" VerticalAlignment="Top"/>
         <Label x:Name="addrLabel" Content="Address" HorizontalAlignment="Left" Margin="24,111,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.517,-0.143"/>
         <Label x:Name="connectLabel" Content="Connection" HorizontalAlignment="Left" Margin="13,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.159,0.547"/>
-        <ProgressBar HorizontalAlignment="Left" Height="27" Margin="83,270,0,0" VerticalAlignment="Top" Width="398"/>
-        <Label x:Name="progressLabel" Content="Progress" HorizontalAlignment="Left" Margin="24,270,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="updateButton" Content="Update" HorizontalAlignment="Left" Margin="83,236,0,0" VerticalAlignment="Top" Width="75">
-            <Button.IsEnabled>
-                <MultiBinding Converter="{StaticResource multiBoolConverter}">
-                    <Binding Path="ImageFileManager.CurrentImageFile.IsEnabled" />
-                    <Binding Path="CurrentDevice.UpdaterModel.IsConnected" />
-                </MultiBinding>
-            </Button.IsEnabled>
-        </Button>
+        <ProgressBar HorizontalAlignment="Left" Height="27" Margin="83,360,0,0" VerticalAlignment="Top" Width="398"/>
+        <Label x:Name="progressLabel" Content="Progress" HorizontalAlignment="Left" Margin="27,360,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="updateButton" Content="Update" Command="{Binding CurrentDevice.UpdaterModel.UpdateCommand}" HorizontalAlignment="Left" Margin="83,313,0,0" VerticalAlignment="Top" Width="75" IsEnabled="{Binding UpdateAllowed}"/>
+
         <TextBox x:Name="statusText" HorizontalAlignment="Left" Height="23" Margin="406,177,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="158"/>
         <Label x:Name="statusLabel" Content="Status" HorizontalAlignment="Left" Margin="365,178,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
@@ -45,19 +31,34 @@
             </Label.RenderTransform>
         </Label>
 
-        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="83,47,0,0" VerticalAlignment="Top" Width="299" RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding imgFileVM.ImageFileViewModelList}" SelectedItem="{Binding imgFileVM.CurrentImageFile}" ToolTip="{Binding CurrentImageFile.FullPath}">
-        <ComboBox.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform/>
-                <SkewTransform/>
-                <RotateTransform Angle="0.188"/>
-                <TranslateTransform/>
-            </TransformGroup>
-        </ComboBox.RenderTransform>
-       </ComboBox>
-        <Button x:Name="button" Content="Connect" HorizontalAlignment="Left" Margin="242,180,0,0" VerticalAlignment="Top" Width="75" Height="22" IsEnabled="{qc:Binding '!$P', P={Binding Path=devVM.CurrentDevice.IsNull} }"
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="83,47,0,0" VerticalAlignment="Top" Width="299" RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding ImageFileManager.ImageFileViewModelList}" SelectedItem="{Binding ImageFileManager.CurrentImageFile}" ToolTip="{Binding ImageFileManager.CurrentImageFile.FullPath}">
+            <ComboBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.188"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ComboBox.RenderTransform>
+        </ComboBox>
+        <Button x:Name="button" Content="Connect" HorizontalAlignment="Left" Margin="242,180,0,0" VerticalAlignment="Top" Width="75" Height="22" IsEnabled="{qc:Binding '!$P', P={Binding Path=CurrentDevice.IsNull} }"
                         Click="ConnectToBootloader"/>
         <Button x:Name="saveButt" Content="Store Selection" HorizontalAlignment="Left" Margin="406,114,0,0" VerticalAlignment="Top" Width="100" Background="Azure"/>
+
+        <!--
+        <StackPanel HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center">
+            <RadioButton Content="Erase All to Unlock" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"
+                    IsChecked="{Binding FlashEraseAllUnsecure}" IsEnabled="{Binding isFlashEraseAllUnsecureSupported}" 
+                    ToolTip="All of Internal Flash will be erased to release the security." Height="25" Width="425"/>
+            <RadioButton Content="Unlock using Backdoor Key" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"
+                    IsChecked="{Binding UnlockWithBackdoorKey}" 
+                    ToolTip="Release security before next reset."/>
+            <TextBox TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"
+                    Visibility="{Binding UnlockWithBackdoorKey, ConverterParameter=Hidden, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"
+                    Text="{Binding BackdoorKey}" Width="125" MaxLength="16"
+                    ToolTip="BackdoorKey must be 16 hex digits with no leading &quot;0x&quot;."/>
+        </StackPanel>
+        -->
 
     </Grid>
 </Window>

@@ -242,7 +242,7 @@ namespace KinetisUpdater.ViewModel
                     // See if it has a running bootloader.
                     if ((_CurrentDevice.IsUsbHid && _CurrentDevice.UpdaterModel.AutoConnectUSBDevice) || _CurrentDevice.IsSerial)
                     {
-                        _CurrentDevice.UpdaterModel.Ping();
+                        _CurrentDevice.UpdaterModel.Ping();   // TODO: assess - do we want to connect unconditionally!
                     }
 
                     if (_CurrentDevice.IsSerial)
@@ -351,6 +351,22 @@ namespace KinetisUpdater.ViewModel
 
 //                        UpdateStatus();
         }
+
+        // Convenience property which can be used to set complex logic for update-allowance:
+        private bool _updateAllowed = false;
+        public bool UpdateAllowed
+        {
+            get
+            {
+                return _updateAllowed;
+            }
+            set
+            {
+                _updateAllowed = value;
+                RaisePropertyChangedEvent("UpdateAllowed");
+            }
+        }
+
     } // class DeviceManagerViewModel
 
 }
